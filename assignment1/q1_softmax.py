@@ -31,12 +31,16 @@ def softmax(x):
     if len(x.shape) > 1:
         # Matrix
         ### YOUR CODE HERE
-        raise NotImplementedError
+        temp = x.T - np.max(x, axis = 1)
+        temp = np.exp(temp)
+        val = np.sum(temp, axis = 0)
+        x = (temp / val).T
         ### END YOUR CODE
     else:
         # Vector
         ### YOUR CODE HERE
-        raise NotImplementedError
+        temp = np.exp(x)
+        x = temp / np.sum(temp)
         ### END YOUR CODE
 
     assert x.shape == orig_shape
@@ -48,25 +52,25 @@ def test_softmax_basic():
     Some simple tests to get you started.
     Warning: these are not exhaustive.
     """
-    print "Running basic tests..."
+    print("Running basic tests...")
     test1 = softmax(np.array([1,2]))
-    print test1
+    print(test1)
     ans1 = np.array([0.26894142,  0.73105858])
     assert np.allclose(test1, ans1, rtol=1e-05, atol=1e-06)
 
     test2 = softmax(np.array([[1001,1002],[3,4]]))
-    print test2
+    print(test2)
     ans2 = np.array([
         [0.26894142, 0.73105858],
         [0.26894142, 0.73105858]])
     assert np.allclose(test2, ans2, rtol=1e-05, atol=1e-06)
 
     test3 = softmax(np.array([[-1001,-1002]]))
-    print test3
+    print(test3)
     ans3 = np.array([0.73105858, 0.26894142])
     assert np.allclose(test3, ans3, rtol=1e-05, atol=1e-06)
 
-    print "You should be able to verify these results by hand!\n"
+    print("You should be able to verify these results by hand!\n")
 
 
 def test_softmax():
@@ -76,9 +80,9 @@ def test_softmax():
     This function will not be called by the autograder, nor will
     your tests be graded.
     """
-    print "Running your tests..."
+    print("Running your tests...")
     ### YOUR CODE HERE
-    raise NotImplementedError
+    test_softmax_basic()
     ### END YOUR CODE
 
 
